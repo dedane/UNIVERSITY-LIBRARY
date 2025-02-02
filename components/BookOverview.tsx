@@ -5,7 +5,11 @@ import React from 'react'
 import { Button } from './ui/button'
 import BookCover from './BookCover'
 
-const BookOverview = ({title, author, genre, rating, total_copies, available_copies, description, color, cover}: Book) => {
+interface props{
+    userId: string;
+}
+
+const BookOverview = ({title, author, genre, rating, total_copies, available_copies, description, color, coverUrl}: Book) => {
   return (
     <section className='book-overview'>
         <div className='flex flex-1 flex-col gap-5'>
@@ -34,7 +38,7 @@ const BookOverview = ({title, author, genre, rating, total_copies, available_cop
                     variant='wide'
                     className='z-10'
                     coverColor={color}
-                    coverImage={cover}
+                    coverImage={coverUrl}
                 />
                 <div className='absolute left-16 top-10 rotate-12 opacity-40 max-sm:hidden'>
 
