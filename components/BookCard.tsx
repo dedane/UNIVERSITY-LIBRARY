@@ -17,7 +17,7 @@ const BookCard = ({id, title, genre, color, coverUrl, isLoanedBook = false}: Boo
             {!isLoanedBook && (
                 <div className='mt-3 w-full'>
                     <div className='book-loaned'>
-                        <Image src='/icon/calendar.svg' alt='calendar' width={18} height={18} className='object-contain'/>
+                        <Image src='/icons/calendar.svg' alt='calendar' width={18} height={18} className='object-contain'/>
                         <p className='text-light-100'> 11 day left to return</p>
                     </div>
                         <Button className='book-btn'>
