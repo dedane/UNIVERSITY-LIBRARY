@@ -11,9 +11,9 @@ const page = () => {
     <>
       <BookOverview  totla_copies={0} available_copies={0} color={''} cover={''} video={''} isLoanedBook={undefined} {...sampleBooks[0]}/>
       <BookList
-      title ='latest Books'
-      books ={sampleBooks}
-      containerClassName="mt-28" />
+        title ='latest Books'
+        books ={sampleBooks}
+        containerClassName="mt-28" />
     </>
   )
 }
