@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React, { ReactNode } from 'react'
+import { Toaster } from "@/components/ui/toaster"
 
 const layout = ({children} : { children: ReactNode }) => {
   return (

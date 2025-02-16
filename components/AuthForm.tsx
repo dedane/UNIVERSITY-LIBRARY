@@ -1,3 +1,5 @@
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { DefaultValues, FieldValues, Path, SubmitHandler, useForm, UseFormReturn } from 'react-hook-form'
@@ -9,6 +11,10 @@ import Link from 'next/link';
 import { FIELD_NAMES, FIELD_TYPES } from '@/app/constants';
 import { University } from 'lucide-react';
 import ImageUpload from './ImageUpload';
+import { toast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
+
+
 
 
 interface props<T extends FieldValues> {
@@ -23,6 +29,7 @@ const AuthForm =<T extends FieldValues>
      schema, 
      defaultValues, 
      onSubmit}: props<T>) => {
+      const router = useRouter();
         const isSignIn = type  ==='SIGN_IN'
     const form: UseFormReturn<T> = useForm({
         resolver: zodResolver(schema),
@@ -31,7 +38,23 @@ const AuthForm =<T extends FieldValues>
      
       // 2. Define a submit handler.
       const handleSubmit: SubmitHandler<T> = async(data) => {
+        const result = await onSubmit(data)
 
+        if(result.success){
+          toast({
+            title: 'Success',
+            description: isSignIn ?
+             'You Have successfully signed In' :
+             'You Have successfully signed up'
+          })
+          router.push('/')
+        } else {
+          toast ({
+            title: `Error ${isSignIn ? 'signing in' : 'signing up'}`,
+            description: result.error ?? 'An error occured',
+            variant: 'destructive'
+          })
+        }
       }
   return (
     <div className='flex flex-col gap-4'>
@@ -74,7 +97,7 @@ const AuthForm =<T extends FieldValues>
       </form>
     </Form>
     <p className='text-center text-base font-medium'>
-        {isSignIn ? 'New to BooksWise': 'Already Have an account?'}
+        {isSignIn ? 'New to BooksWise?': 'Already Have an account?'}
         <Link href={isSignIn ? '/sign-up': '/sign-in'} className='font-bold text-primary'>
         {isSignIn ? ' Create An Account ' : ' Sign In '}
         </Link>
